@@ -3,7 +3,7 @@
     <meta charset="utf-8">
 
     <!-- The Viewer CSS -->
-    <link rel="stylesheet" href="https://developer.api.autodesk.com/derivativeservice/v2/viewers/style.css" type="text/css">
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css" type="text/css">
 
     <!-- Developer CSS -->
     <style>
@@ -19,13 +19,11 @@
     </style>
 </head>
 <body>
-
     <!-- The Viewer will be instantiated here -->
     <div id="MyViewerDiv"></div>
 
     <!-- The Viewer JS -->
-    <script src="https://developer.api.autodesk.com/derivativeservice/v2/viewers/three.js"></script>
-    <script src="https://developer.api.autodesk.com/derivativeservice/v2/viewers/viewer3D.js"></script>
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js"></script>
 
     <!-- Developer JS -->
     <script>
@@ -44,7 +42,7 @@
                 //    "expires_in": 86400
                 // }
                 //
-                var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJ6OGZHRDdzT3oyN2RHc2lHMWczZGYybmVsa1hjaFRBViIsImV4cCI6MTUxMjk4ODE5MCwic2NvcGUiOlsiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiZGF0YTpyZWFkIiwiYnVja2V0OmNyZWF0ZSIsImJ1Y2tldDpyZWFkIiwiYWNjb3VudDpyZWFkIiwiYWNjb3VudDp3cml0ZSJdLCJhdWQiOiJodHRwczovL2F1dG9kZXNrLmNvbS9hdWQvand0ZXhwNjAiLCJqdGkiOiJWZmQyRTh5VWZkWkcwSU41eXd4ZXJRMlRTemlaVk9mYWFBZ3B5bmVBU0U3b3U2dFo2bWdoZzBoUHRYa0g3RUoxIn0.H8t5knVv-acpJ0ERirR3MD43SWX7oCNRrwpcnmnZ2V8';
+                var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJJSFIxbnExb2xzTXdaNjE1SlNwUkx2bWYyNHVoeFc0VCIsImV4cCI6MTU0MTIyNzA5Mywic2NvcGUiOlsiZGF0YTpyZWFkIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIiwiZGF0YTp3cml0ZSIsImJ1Y2tldDpkZWxldGUiLCJhY2NvdW50OnJlYWQiLCJhY2NvdW50OndyaXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IndQemt3ak12RGFhMFY3a0xSYzJkbll1WTVZY3lPclFNOGdnaGc3M0NFMGlWaDNtV1lBcHB2OTZRYTJmdHFmbFoifQ.0S12r6RHu4aXk6C6AV-GvQw-65eYEN_Qd_eybTdl-Qw';
                 var expireTimeSeconds = 60 * 30;
                 onGetAccessToken(accessToken, expireTimeSeconds);
             }
@@ -54,7 +52,7 @@
           extensions: ['Autodesk.InViewerSearch']
 		}; 
         
-        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6am9obm9uc29mdHdhcmV3b3Jrc2hvcDMvYmI4YXIuZjNk';
+        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cmV2aXRpb3NhbXBsZS9yZXZpdHNhbXBsZS5ydnQ';
         Autodesk.Viewing.Initializer(options, function onInitialized(){
             viewerApp = new Autodesk.Viewing.ViewingApplication('MyViewerDiv');
             viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D, config3d);
