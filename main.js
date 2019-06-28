@@ -3,12 +3,12 @@ var viewerApp;
 var options = {
     env: 'AutodeskProduction',
     getAccessToken: function (onGetAccessToken) {
-        var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTc0NTYwNiwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IjZ3Z3Y0c3I4ZGR3UkF2aUNNREVSRU5TVEFodGc5YnhQYUh2c3RTQm16OGlBcDgxN0FZUzVWU2c1SEt6UWJIZzMifQ.bc29QtVMVj07l_S9T6bvmCJnr3HPDHi70-nI1U8NgKk';
+        var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTc1MzQyNiwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IjdVejFHc0RtMjVSNWRYZkhIYTlsdHhHT2EweFRSZnZvQTRYTWNycUxGNFBINlJOV2pkVXdSQm9kU0FOeGp2RGgifQ.4WZLYEMtoKWsQB3f6_RF8tInHPJ461T8H2yQu_HA6Lk';
         var expireTimeSeconds = 3599;
         onGetAccessToken(accessToken, expireTimeSeconds);
     },
 };
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNjI5L1NIVVJFX0FMVEVSX0FWXzIwMTkucnZ0';
+var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNjI5L1NIVVJFX0FMVEVSXzIwMTkucnZ0';
 Autodesk.Viewing.Initializer(options, function onInitialized() {
     // Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure); -- Basic Viewer
     viewerApp = new Autodesk.Viewing.ViewingApplication('MyViewerDiv');
@@ -22,7 +22,7 @@ Autodesk.Viewing.Initializer(options, function onInitialized() {
 */
 // var lmvDoc; -- basic viewer
 var viewables;
-var indexViewable =0;
+var indexViewable = 0;
 function onDocumentLoadSuccess(doc) {
 
     // A document contains references to 3D and 2D viewables.
@@ -68,6 +68,16 @@ function onDocumentLoadSuccess(doc) {
 //     };
 //     viewer.loadModel(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
 // }
+function loadPrevModel() {
+    indexViewable = (indexViewable - 1) % viewables.length;
+    viewerApp.selectItem(viewables[indexViewable].data, onItemLoadSuccess, onItemLoadFail);
+    // viewer.tearDown();
+    // viewer.setUp(viewer.config);
+
+    // // Next viewable index. Loop back to 0 when overflown.
+    // indexViewable = (indexViewable + 1) % viewables.length;
+    // loadModel(); -- basic viewer
+} 
 function loadNextModel() {
     indexViewable = (indexViewable + 1) %viewables.length;
     viewerApp.selectItem(viewables[indexViewable].data, onItemLoadSuccess, onItemLoadFail);

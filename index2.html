@@ -25,13 +25,22 @@
 
     <!-- The Viewer will be instantiated here -->
     <div id="MyViewerDiv"></div>
+    <button id="MyPrevButton" onClick="loadPrevModel()">Prev!</button>
     <button id="MyNextButton" onClick="loadNextModel()">Next!</button>
 
     <style>
-        #MyNextButton {
-            position: absolute;
+        #MyPrevButton {
+            position: fixed;
             top: 5px;
             left: 5px;
+            z-index: 1;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        #MyNextButton {
+            position: fixed;
+            top: 5px;
+            left: 120px;
             z-index: 1;
             font-size: 40px;
             cursor: pointer;
