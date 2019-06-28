@@ -42,7 +42,7 @@
                 //    "expires_in": 86400
                 // }
                 //
-                var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJJSFIxbnExb2xzTXdaNjE1SlNwUkx2bWYyNHVoeFc0VCIsImV4cCI6MTU0MTIyNzA5Mywic2NvcGUiOlsiZGF0YTpyZWFkIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIiwiZGF0YTp3cml0ZSIsImJ1Y2tldDpkZWxldGUiLCJhY2NvdW50OnJlYWQiLCJhY2NvdW50OndyaXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IndQemt3ak12RGFhMFY3a0xSYzJkbll1WTVZY3lPclFNOGdnaGc3M0NFMGlWaDNtV1lBcHB2OTZRYTJmdHFmbFoifQ.0S12r6RHu4aXk6C6AV-GvQw-65eYEN_Qd_eybTdl-Qw';
+                var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTczMjE2Nywic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IkxmY1IzaGc5M3ZuS1hidU5STDF5ZDRWRVkxOHZReU5XUjVkVGNiQUdJdGU5cEJiMFF2VGl1aEhaaFhFTDltWW4ifQ.Zj2HJ3dWPrvQ7iq7QKBSvVM34pZTZKq0S9D8CHWhLfE';
                 var expireTimeSeconds = 60 * 30;
                 onGetAccessToken(accessToken, expireTimeSeconds);
             }
@@ -52,7 +52,7 @@
           extensions: ['Autodesk.InViewerSearch']
 		}; 
         
-        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cmV2aXRpb3NhbXBsZS9yZXZpdHNhbXBsZS5ydnQ';
+        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNjIxL1NIVVJFX0FMVEVSX0FWXzIwMTkucnZ0';
         Autodesk.Viewing.Initializer(options, function onInitialized(){
             viewerApp = new Autodesk.Viewing.ViewingApplication('MyViewerDiv');
             viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D, config3d);

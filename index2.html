@@ -1,0 +1,116 @@
+<head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
+    <meta charset="utf-8">
+
+    <!-- The Viewer CSS -->
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css"
+        type="text/css">
+
+    <!-- Developer CSS -->
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #MyViewerDiv {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background-color: #F0F8FF;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- The Viewer will be instantiated here -->
+    <div id="MyViewerDiv"></div>
+    <button id="MyNextButton" onClick="loadNextModel()">Next!</button>
+
+    <style>
+        #MyNextButton {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            z-index: 1;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <!-- The Viewer JS -->
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/three.min.js"></script>
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/viewer3D.min.js"></script>
+
+    <!-- Developer JS -->
+    <script>
+        var viewer;
+        var options = {
+            env: 'AutodeskProduction',
+            getAccessToken: function(onGetAccessToken) {
+                var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTczODY0OSwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IkJoN1F1Y3M2MEVUYkNWTTE4WWRCNHFqVFVacDM4eWlLR1ROd3M5NXpOM29XajFRV3Q0YjBxV1NCOUZ4blpQR2cifQ.uhx_I1og-WcBy2itSxQMIHEgmqRvLmEumXgUxUDJ-fw';
+                var expireTimeSeconds = 3599;
+                onGetAccessToken(accessToken, expireTimeSeconds);
+            },
+            accessToken: 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTczODY0OSwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IkJoN1F1Y3M2MEVUYkNWTTE4WWRCNHFqVFVacDM4eWlLR1ROd3M5NXpOM29XajFRV3Q0YjBxV1NCOUZ4blpQR2cifQ.uhx_I1og-WcBy2itSxQMIHEgmqRvLmEumXgUxUDJ-fw'
+        };
+        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNjI5L1NIVVJFX0FMVEVSX0FWXzIwMTkucnZ0';
+        Autodesk.Viewing.Initializer(options, function onInitialized() {
+            Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+        });
+
+        /**
+        * Autodesk.Viewing.Document.load() success callback.
+        * Proceeds with model initialization.
+        */
+        function onDocumentLoadSuccess(doc) {
+
+            // A document contains references to 3D and 2D viewables.
+            var viewables = Autodesk.Viewing.Document.getSubItemsWithProperties(doc.getRootItem(), { 'type': 'geometry' }, true);
+            if (viewables.length === 0) {
+                console.error('Document contains no viewables.');
+                return;
+            }
+
+            // Choose any of the avialble viewables
+            var initialViewable = viewables[0];
+            var svfUrl = doc.getViewablePath(initialViewable);
+            var modelOptions = {
+                sharedPropertyDbPath: doc.getPropertyDbPath()
+            };
+
+            var viewerDiv = document.getElementById('MyViewerDiv');
+            viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+            viewer.start(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
+        }
+
+        /**
+         * Autodesk.Viewing.Document.load() failuire callback.
+         */
+        function onDocumentLoadFailure(viewerErrorCode) {
+            console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
+        }
+
+        /**
+         * viewer.loadModel() success callback.
+         * Invoked after the model's SVF has been initially loaded.
+         * It may trigger before any geometry has been downloaded and displayed on-screen.
+         */
+        function onLoadModelSuccess(model) {
+            console.log('onLoadModelSuccess()!');
+            console.log('Validate model loaded: ' + (viewer.model === model));
+            console.log(model);
+        }
+
+        /**
+         * viewer.loadModel() failure callback.
+         * Invoked when there's an error fetching the SVF file.
+         */
+        function onLoadModelError(viewerErrorCode) {
+            console.error('onLoadModelError() - errorCode:' + viewerErrorCode);
+        }
+
+    </script>
+</body>
+
