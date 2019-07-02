@@ -89,9 +89,9 @@ router.get('/api/forge/oauth/callback', function (req, res) {
     var req = new forgeSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopeInternal);
 
     req.getToken(code)
-    .then(function (getInternalCredentials) {
-        tokenSession.setInternalCredentials(internalCredentials)
-        tokenSession.setInternalOAuth(req);
+        .then(function (internalCredentials) {
+            tokenSession.setInternalCredentials(internalCredentials)
+            tokenSession.setInternalOAuth(req);
 
         var req2 = new forgeSDK.AuthClientThreeLegged(config.credentials.client_id, config.credentials.client_secret, config.callbackURL, config.scopePublic);
         req2.refreshToken(internalCredentials)

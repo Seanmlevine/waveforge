@@ -2,7 +2,7 @@
   "name": "waveguideserver",
   "version": "1.0.0",
   "description": "A Bim 360 Server utilizing Autodesk Forge for viewing and issue API",
-  "main": "main.js",
+  "main": "index2.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,7 @@
     "clipboard": "^2.0.4",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "forge-apis": "^0.4.5",
     "jquery": "^3.4.1",
     "jstree": "^3.3.8",

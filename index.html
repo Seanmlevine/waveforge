@@ -2,14 +2,43 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
     <meta charset="utf-8">
 
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/jstree/style.css" />
+    <link rel="stylesheet" href="/css/nv.d3.css">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="shortcut icon" href=/img/favicon.ico type=image/x-icon>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jstree.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/clipboard.min.js"></script>
+    <script src="/js/libraries/d3.min.js"></script>
+    <script src="/js/libraries/d3pie.min.js"></script>
+    <script src="/js/libraries/nv.d3.min.js"></script>
+
+
+    <!-- BIM360 packages: login and authentication -->
+    <script src="/js/oauth.js"></script>
+    <script src="/js/forge.data.management.js"></script>
+    <script src="/js/forge.viewer.js"></script>
+    <script src="/js/reportData.js"></script>
+    <script src="/js/barchart.js"></script>
+    <script src="/js/piechart.js"></script>
+
+    
+
+
     <!-- The Viewer CSS -->
-    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/style.min.css" type="text/css">
+    <link rel="stylesheet" href="https://developer.api.autodesk.com/modelderivative/v2/viewers/style.min.css" type="text/css">
+    <script src="https://developer.api.autodesk.com//modelderivative/v2/viewers/viewer3D.min.js?v=v6.4"></script>
+
 
     <!-- Developer CSS -->
     <style>
         body {
             margin: 0;
         }
+
         #MyViewerDiv {
             width: 100%;
             height: 100%;
@@ -18,78 +47,52 @@
         }
     </style>
 </head>
+    <!-- Insert the correct client_id and redirect uri 
+    client id - HgGw9y3UC9kYqKj5EmBYz13Asz2apYVH
+    uri - http://localhost:3000/api/forge/oauth/callback
+    uri - http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback -->
+
 <body>
+<nav class="nav navbar-expand-lg navbar-light fixed-top" style = "background-color: antiquewhite;">
+        <h4 class="navbar-brand" href="#">
+                    <img alt="Autodesk Forge" src="/img/bim360.png" height="50" /> Waveguide
+        </h4>
+        <a class="navbar-brand  my-2 my-lg-0" href="https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=HgGw9y3UC9kYqKj5EmBYz13Asz2apYVH&redirect_uri=http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback&scope=data:read" id="signInButton">
+            <span class="navbar-brand my-2" id="signInProfileImage"></span>
+            <span class="navbar-brand " id="signInButtonText" title="Sign in with your Autodesk Account">Sign in</span> 
+        </a>
+</nav>
     <!-- The Viewer will be instantiated here -->
-    <div id="MyViewerDiv"></div>
+    <div id="MyViewerDiv">
+    <button id="MyPrevButton" onClick="loadPrevModel()">Prev!</button>
+    <button id="MyNextButton" onClick="loadNextModel()">Next!</button>
+    </div>
+
+    <style>
+        #MyPrevButton {
+            position: relative;
+            top: 5px;
+            left: 5px;
+            z-index: 1;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        #MyNextButton {
+            position: relative;
+            top: 5px;
+            left: 120px;
+            z-index: 1;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    </style>
+
 
     <!-- The Viewer JS -->
+    <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/three.min.js"></script>
     <script src="https://developer.api.autodesk.com/modelderivative/v2/viewers/6.*/viewer3D.min.js"></script>
 
     <!-- Developer JS -->
-    <script>
-        var viewerApp;
-        var options = {
-            env: 'AutodeskProduction',
-            getAccessToken: function(onGetAccessToken) {
-                //
-                // TODO: Replace static access token string below with call to fetch new token from your backend
-                // Both values are provided by Forge's Authentication (OAuth) API.
-                //
-                // Example Forge's Authentication (OAuth) API return value:
-                // {
-                //    "access_token": "<YOUR_APPLICATION_TOKEN>",
-                //    "token_type": "Bearer",
-                //    "expires_in": 86400
-                // }
-                //
-                var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTczMzE0OCwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6ImRZcWtxYmhFVXo0OVU4RTMzN3M5R0ZlbFljQVVQem50Sk84b05TZEVCNGlQVkRGbmxsOVFFZWx3UjFNWEFXdXAifQ.tljSk5oFqaYuxgRtZoXGSt9bxRFK3sYkRcZty-ZpGxY';
-                var expireTimeSeconds = 60 * 30;
-                onGetAccessToken(accessToken, expireTimeSeconds);
-            }
-
-        };
-		let config3d = {
-          extensions: ['Autodesk.InViewerSearch']
-		}; 
-        
-        var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNjIxL1NIVVJFX0FMVEVSX0FWXzIwMTkucnZ0';
-        Autodesk.Viewing.Initializer(options, function onInitialized(){
-            viewerApp = new Autodesk.Viewing.ViewingApplication('MyViewerDiv');
-            viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D, config3d);
-            viewerApp.loadDocument(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
-        });
-
-        function onDocumentLoadSuccess(doc) {
-
-            // We could still make use of Document.getSubItemsWithProperties()
-            // However, when using a ViewingApplication, we have access to the **bubble** attribute,
-            // which references the root node of a graph that wraps each object from the Manifest JSON.
-            var viewables = viewerApp.bubble.search({'type':'geometry'});
-            if (viewables.length === 0) {
-                console.error('Document contains no viewables.');
-                return;
-            }
-
-            // Choose any of the avialble viewables
-            viewerApp.selectItem(viewables[0].data, onItemLoadSuccess, onItemLoadFail);
-        }
-
-        function onDocumentLoadFailure(viewerErrorCode) {
-            console.error('onDocumentLoadFailure() - errorCode:' + viewerErrorCode);
-        }
-
-        function onItemLoadSuccess(viewer, item) {
-            console.log('onItemLoadSuccess()!');
-            console.log(viewer);
-            console.log(item);
-
-            // Congratulations! The viewer is now ready to be used.
-            console.log('Viewers are equal: ' + (viewer === viewerApp.getCurrentViewer()));
-        }
-
-        function onItemLoadFail(errorCode) {
-            console.error('onItemLoadFail() - errorCode:' + errorCode);
-        }
-
-    </script>
+    <script src="./main.js"></script>
 </body>
+
