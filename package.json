@@ -1,0 +1,27 @@
+{
+  "name": "waveguideserver",
+  "version": "1.0.0",
+  "description": "A Bim 360 Server utilizing Autodesk Forge for viewing and issue API",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnOnSoftware/Forge.Viewer.Classroom.Trainning.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Sean Levine",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnOnSoftware/Forge.Viewer.Classroom.Trainning/issues"
+  },
+  "homepage": "https://github.com/JohnOnSoftware/Forge.Viewer.Classroom.Trainning#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "forge-apis": "^0.4.5"
+  }
+}

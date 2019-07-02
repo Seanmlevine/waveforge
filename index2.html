@@ -20,6 +20,10 @@
         }
     </style>
 </head>
+    <!-- Insert the correct client_id and redirect uri 
+    client id - HgGw9y3UC9kYqKj5EmBYz13Asz2apYVH
+    uri - http://localhost:3000/api/forge/oauth/callback
+    uri - http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback -->
 
 <body>
 
@@ -27,6 +31,9 @@
     <div id="MyViewerDiv"></div>
     <button id="MyPrevButton" onClick="loadPrevModel()">Prev!</button>
     <button id="MyNextButton" onClick="loadNextModel()">Next!</button>
+    <a id ="SignIn" href="https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=HgGw9y3UC9kYqKj5EmBYz13Asz2apYVH&redirect_uri=http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback&scope=data:read">
+    <button id ="SignInButton">Click here to grant access to your data!</button>
+    </a>
 
     <style>
         #MyPrevButton {
@@ -45,6 +52,14 @@
             font-size: 40px;
             cursor: pointer;
         }
+        #SignInButton {
+            position: fixed;
+            top: 5px;
+            left: 250px;
+            z-index: 1;
+            font-size: 40px;
+            cursor: pointer;
+        }
     </style>
 
 
@@ -54,5 +69,6 @@
 
     <!-- Developer JS -->
     <script src="./main.js"></script>
+    <script src="./callback.js"></script>
 </body>
 

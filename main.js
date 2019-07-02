@@ -3,12 +3,12 @@ var viewerApp;
 var options = {
     env: 'AutodeskProduction',
     getAccessToken: function (onGetAccessToken) {
-        var accessToken = 'eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MTc1MzQyNiwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6IjdVejFHc0RtMjVSNWRYZkhIYTlsdHhHT2EweFRSZnZvQTRYTWNycUxGNFBINlJOV2pkVXdSQm9kU0FOeGp2RGgifQ.4WZLYEMtoKWsQB3f6_RF8tInHPJ461T8H2yQu_HA6Lk';
+        var accessToken = "eyJhbGciOiJIUzI1NiIsImtpZCI6Imp3dF9zeW1tZXRyaWNfa2V5In0.eyJjbGllbnRfaWQiOiJIZ0d3OXkzVUM5a1lxS2o1RW1CWXoxM0FzejJhcFlWSCIsImV4cCI6MTU2MjAwODM5NSwic2NvcGUiOlsiZGF0YTpyZWFkIiwiZGF0YTp3cml0ZSIsImRhdGE6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJidWNrZXQ6Y3JlYXRlIl0sImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9qd3RleHA2MCIsImp0aSI6ImJmcDhNVUdUN2k2QzMwdExCVlBSVVFRVHRMb2hNMlJydWN6N2JCT0RlZkdha1N5eUJxYmVxQ3ZaTmlobFloSXYifQ.Q4mZH4UYJmpYkQLvbu-cB0-A4h7fiQgAPYEXm49nj3Y";
         var expireTimeSeconds = 3599;
         onGetAccessToken(accessToken, expireTimeSeconds);
     },
 };
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNjI5L1NIVVJFX0FMVEVSXzIwMTkucnZ0';
+var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6c2xldmluZV8wNzAxL1RFU1RFUi56aXA';
 Autodesk.Viewing.Initializer(options, function onInitialized() {
     // Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure); -- Basic Viewer
     viewerApp = new Autodesk.Viewing.ViewingApplication('MyViewerDiv');
@@ -69,8 +69,13 @@ function onDocumentLoadSuccess(doc) {
 //     viewer.loadModel(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
 // }
 function loadPrevModel() {
+    if (indexViewable === 0){
+        indexViewable =  viewables.length;
+    }
+    else{
     indexViewable = (indexViewable - 1) % viewables.length;
     viewerApp.selectItem(viewables[indexViewable].data, onItemLoadSuccess, onItemLoadFail);
+    }
     // viewer.tearDown();
     // viewer.setUp(viewer.config);
 
