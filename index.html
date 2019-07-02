@@ -44,7 +44,13 @@
             width: 100%;
             height: 100%;
             margin: 0;
-            background-color: #F0F8FF;
+            background-color: rgba(240, 248, 255, 0.986);
+        }
+        #viewerSecondary {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background-color: rgba(240, 248, 255, 0.986);
         }
     </style>
 </head>
@@ -54,11 +60,11 @@
     uri - http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback -->
 
 <body>
-<nav class="nav navbar-expand-lg navbar-light fixed-top" style = "background-color: antiquewhite;">
+<nav class="nav navbar-expand-lg navbar-light fixed-top border-bottom border-dark" style = "background-color: white;">
         <h4 class="navbar-brand" href="#">
-                    <img alt="Autodesk Forge" src="/img/bim360.png" height="40" /> Waveguide
+                    <img alt="Autodesk Forge" src="/img/logo.jpg" height="40" />
         </h4>
-        <a id ="signInButton" class="navbar-brand  my-2 my-lg-0" href="https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=HgGw9y3UC9kYqKj5EmBYz13Asz2apYVH&redirect_uri=http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback&scope=data:read" id="signInButton">
+        <a id ="signInButton" class="navbar-brand  ml-auto" href="https://developer.api.autodesk.com/authentication/v1/authorize?response_type=code&client_id=HgGw9y3UC9kYqKj5EmBYz13Asz2apYVH&redirect_uri=http%3A%2F%2Flocalhost:3000%2Fapi%2Fforge%2Foauth%2Fcallback&scope=data:read" id="signInButton">
             <span class="navbar-brand my-2" id="signInProfileImage"></span>
             <span class="navbar-brand " id="signInButtonText" title="Sign in with your Autodesk Account">Sign in</span> 
         </a>
@@ -73,26 +79,14 @@
             <!-- <button id="MyPrevButton" onClick="loadPrevModel()">Prev!</button>
             <button id="MyNextButton" onClick="loadNextModel()">Next!</button> -->
         </div>
-    </div>
+        <div class = "row">
+            <div id = "dropdown2dviews"> <select id="list2dviews" class="sm-1"></select>
+            </div>
+            <div id ="viewerSecondary">
 
-    <style>
-        #MyPrevButton {
-            position: relative;
-            top: 5px;
-            left: 5px;
-            z-index: 1;
-            font-size: 40px;
-            cursor: pointer;
-        }
-        #MyNextButton {
-            position: relative;
-            top: 5px;
-            left: 120px;
-            z-index: 1;
-            font-size: 40px;
-            cursor: pointer;
-        }
-    </style>
+            </div>
+        </div>
+    </div>
 
 
     <!-- The Viewer JS -->

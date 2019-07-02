@@ -87,13 +87,13 @@ function prepareDataManagementTree() {
         'icon': '/img/a360project.png'
       },
       'items': {
-        'icon': 'glyphicon glyphicon-file'
+        'icon': '/img/paper.png'
       },
       'folders': {
-        'icon': 'glyphicon glyphicon-folder-open'
+        'icon': '/img/file.png'
       },
       'versions': {
-        'icon': 'glyphicon glyphicon-time'
+        'icon': '/img/bim360hub.png'
       }
     },
     "plugins": 

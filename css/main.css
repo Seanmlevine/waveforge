@@ -1,6 +1,7 @@
 body {
     padding-top: 3%; /* space for the top nav bar */
     font-size: 14px !important;
+    background-color: #efffff
 }
 
 #pieChart > p{
@@ -41,6 +42,7 @@ svg{
 .svgcanvas{
     margin-left: 2%;
 }
+
 
 #dropdown2dviews {
     height: 2%;
@@ -292,6 +294,7 @@ svg{
     margin-left: 2%;
 }
 
+
 #dropdown2dviews {
     height: 2%;
     width: 40% !important;
@@ -364,6 +367,7 @@ svg{
     width: 640px !important;
     height: 460px !important;
 }
+
 
 #pieChart {
     margin-left: 2%;
@@ -463,6 +467,7 @@ svg{
     height: 460px !important;
 }
 
+
 #pieChart {
     margin-left: 0%;
     width: 600px;
@@ -503,7 +508,7 @@ svg{
 
 #forgeViewer {
     height: 47% !important;
-    width: 40vw !important;
+    width: 60vw !important;
     display: block;
     position: absolute;
     bottom: 0;
@@ -515,7 +520,7 @@ svg{
 
 #viewerSecondary {
     height: 47% !important;
-    width: 40vw !important;
+    width: 60vw !important;
     display: block;
     position: absolute;
     bottom: 0;
