@@ -29,7 +29,6 @@ function onDocumentLoadSuccess(doc) {
     // viewables = Autodesk.Viewing.Document.getSubItemsWithProperties(doc.getRootItem(), { 'type': 'geometry' }, true); --basic viewer
     viewables = viewerApp.bubble.search({ 'type': 'geometry' });
     console.log(viewables);
-    console.log(viewables[0]);
     if (viewables.length === 0) {
         console.error('Document contains no viewables.');
         return;

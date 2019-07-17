@@ -105,7 +105,7 @@ function prepareDataManagementTree() {
       $(".report-dropdowns").css('visibility', 'visible');
       $("#dropdown2dviews").css('visibility', 'visible');
       launchViewer(data.node.id, 'forgeViewer', 'viewerSecondary');
-      $.notify("loading... " + parent_node.text, { className: "info", position:"bottom right" });
+      // $.notify("loading... " + parent_node.text, { className: "info", position:"bottom right" });
       
     }
   });

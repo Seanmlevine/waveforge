@@ -57,20 +57,44 @@ function launchViewer(urn, div3d, div2d) {
   Autodesk.Viewing.Initializer(options, function onInitialized() {
     Autodesk.Viewing.Document.load(documentId, function(doc) {
       // clear both viewers
-      showModel(doc, '3d', div3d);
+      // showModel(doc, '3d', div3d);
       showModel(doc, '2d', div2d, function(viewables) {
         var options = $("#list2dviews");
+        var floors = $("#floornames");
         viewables.forEach(function(view) {
-          options.append($("<option />").val(view.guid).text(view.name));
+          if(view.name.includes('FLOOR')){
+          floors.append($("<option />").val(view.guid).text(view.name));
+          }
+          // options.append($("<option />").val(view.guid).text(view.name));
         });
+        console.log(floors)
         options.change(function() {
           // destroy and recreate the 2d view
           viewer['2d'].impl.unloadCurrentModel();
           viewer['2d'].tearDown();
           viewer['2d'].finish();
           var viewerDiv = document.getElementById(div2d);
+          console.log(viewerDiv)
           viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
           var selected = this.value;
+          console.log(selected)
+          console.log(doc)
+          viewables.forEach(function(view) {
+            if (view.guid === selected)
+              showSvf(doc, view, '2d');
+          })
+        });
+        floors.change(function() {
+          // destroy and recreate the 2d view
+          viewer['2d'].impl.unloadCurrentModel();
+          viewer['2d'].tearDown();
+          viewer['2d'].finish();
+          var viewerDiv = document.getElementById(div2d);
+          console.log(viewerDiv)
+          viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+          var selected = this.value;
+          console.log(selected)
+          console.log(doc)
           viewables.forEach(function(view) {
             if (view.guid === selected)
               showSvf(doc, view, '2d');
@@ -125,6 +149,7 @@ function showSvf(doc, viewable, role) {
 
   viewer[role].start(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
 }
+
 
 function onDocumentLoadFailure(viewerErrorCode) {}
 

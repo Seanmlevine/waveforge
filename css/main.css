@@ -57,6 +57,10 @@ svg{
     visibility: hidden;
 }
 
+#floornames {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 #forgeViewer {
     height: 47% !important;
@@ -69,8 +73,9 @@ svg{
     right: 0;
     
 }
+/* Suppressed for Full Screen View */
 
-#viewerSecondary {
+/* #viewerSecondary {
     height: 47% !important;
     width: 40vw !important;
     display: block;
@@ -80,7 +85,7 @@ svg{
     left: 28%;
     right: 0;
     
-}
+} */
 
 #positionCharts {
     height: 94vh !important;
@@ -228,7 +233,7 @@ svg{
     
 }
 
-#viewerSecondary {
+/* #viewerSecondary {
     height: 47% !important;
     width: 45vw !important;
     display: block;
@@ -238,7 +243,7 @@ svg{
     left: 28%;
     right: 0;
     
-}
+} */
 
 #positionCharts {
     height: 92vh !important;
@@ -321,7 +326,7 @@ svg{
     
 }
 
-#viewerSecondary {
+/* #viewerSecondary {
     height: 47% !important;
     width: 40vw !important;
     display: block;
@@ -331,7 +336,7 @@ svg{
     left: 28%;
     right: 0;
     
-}
+} */
 
 #positionCharts {
     height: 94vh !important;
@@ -420,7 +425,7 @@ svg{
     
 }
 
-#viewerSecondary {
+/* #viewerSecondary {
     height: 47% !important;
     width: 40vw !important;
     display: block;
@@ -430,7 +435,7 @@ svg{
     left: 28%;
     right: 0;
     
-}
+} */
 
 #positionCharts {
     height: 94vh !important;
@@ -518,7 +523,7 @@ svg{
     
 }
 
-#viewerSecondary {
+/* #viewerSecondary {
     height: 47% !important;
     width: 60vw !important;
     display: block;
@@ -528,7 +533,7 @@ svg{
     left: 28%;
     right: 0;
     
-}
+} */
 
 #positionCharts {
     height: 94vh !important;
@@ -548,3 +553,4 @@ only screen and (-webkit-min-device-pixel-ratio : 1.5),
 only screen and (min-device-pixel-ratio : 1.5) {
 /* Styles */
 }
+
