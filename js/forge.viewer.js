@@ -46,6 +46,8 @@ function blankOutReportPane2d() {
   $("#dropdown2dviews").css('visibility', 'hidden');
 }
 
+
+
 function launchViewer(urn, div3d, div2d) {
   blankOutReportPane()
   var options = {
@@ -60,14 +62,36 @@ function launchViewer(urn, div3d, div2d) {
       // showModel(doc, '3d', div3d);
       showModel(doc, '2d', div2d, function(viewables) {
         var options = $("#list2dviews");
-        var floors = $("#floornames");
+
+
+        var floors = $("#floor-names");
+        var avNames = $("#av-names");
+        var rcpNames = $("#rcp-names");
+        var eavNames = $("#eav-names");
+        var tepdNames = $("#tepd-names");
+        
+
         viewables.forEach(function(view) {
+          //consider grouping by levelName
+
           if(view.name.includes('FLOOR')){
           floors.append($("<option />").val(view.guid).text(view.name));
+          } else if (view.name.includes('RCP', 0)) {
+            rcpNames.append($("<option />").val(view.guid).text(view.name));
+          } else if (view.name.startsWith('AV', 0)) {
+          avNames.append($("<option />").val(view.guid).text(view.name));
+          } else if (view.name.includes('EAV')) {
+          eavNames.append($("<option />").val(view.guid).text(view.name));
+          } else if (view.name.includes('TEPD')) {
+          tepdNames.append($("<option />").val(view.guid).text(view.name));
+          } else if (view.name.includes('LINE')) {
+          lineDiagramNames.append($("<option />").val(view.guid).text(view.name));
           }
           // options.append($("<option />").val(view.guid).text(view.name));
+          console.log(view)
         });
-        console.log(floors)
+
+
         options.change(function() {
           // destroy and recreate the 2d view
           viewer['2d'].impl.unloadCurrentModel();
@@ -81,6 +105,8 @@ function launchViewer(urn, div3d, div2d) {
               showSvf(doc, view, '2d');
           })
         });
+
+
         floors.change(function() {
           // destroy and recreate the 2d view
           viewer['2d'].impl.unloadCurrentModel();
@@ -90,15 +116,72 @@ function launchViewer(urn, div3d, div2d) {
           console.log(viewerDiv)
           viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
           var selected = this.value;
-          console.log(selected)
-          console.log(doc)
           viewables.forEach(function(view) {
             if (view.guid === selected)
               showSvf(doc, view, '2d');
           })
         });
+
+        avNames.change(function() {
+          // destroy and recreate the 2d view
+          viewer['2d'].impl.unloadCurrentModel();
+          viewer['2d'].tearDown();
+          viewer['2d'].finish();
+          var viewerDiv = document.getElementById(div2d);
+          console.log(viewerDiv)
+          viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+          var selected = this.value;
+          viewables.forEach(function(view) {
+            if (view.guid === selected)
+              showSvf(doc, view, '2d');
+          })
+        });
+
+        eavNames.change(function () {
+          // destroy and recreate the 2d view
+          viewer['2d'].impl.unloadCurrentModel();
+          viewer['2d'].tearDown();
+          viewer['2d'].finish();
+          var viewerDiv = document.getElementById(div2d);
+          console.log(viewerDiv)
+          viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+          var selected = this.value;
+          viewables.forEach(function (view) {
+            if (view.guid === selected)
+              showSvf(doc, view, '2d');
+          })
+        });
+
+      tepdNames.change(function () {
+        // destroy and recreate the 2d view
+        viewer['2d'].impl.unloadCurrentModel();
+        viewer['2d'].tearDown();
+        viewer['2d'].finish();
+        var viewerDiv = document.getElementById(div2d);
+        console.log(viewerDiv)
+        viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+        var selected = this.value;
+        viewables.forEach(function (view) {
+          if (view.guid === selected)
+            showSvf(doc, view, '2d');
+        })
       });
 
+      rcpNames.change(function () {
+        // destroy and recreate the 2d view
+        viewer['2d'].impl.unloadCurrentModel();
+        viewer['2d'].tearDown();
+        viewer['2d'].finish();
+        var viewerDiv = document.getElementById(div2d);
+        console.log(viewerDiv)
+        viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
+        var selected = this.value;
+        viewables.forEach(function (view) {
+          if (view.guid === selected)
+            showSvf(doc, view, '2d');
+        })
+      });
+    });
     }, onDocumentLoadFailure);
   });
 }
@@ -134,7 +217,6 @@ function showModel(doc, role, div, callback) {
   
   //takes in boolean or int as final input argument
   floorviews = findViewIndices(viewables, 'FLOOR', 'indices');
-  console.log(floorviews);
   showSvf(doc, viewables[floorviews], role);
 
   if (callback) callback(viewables);
