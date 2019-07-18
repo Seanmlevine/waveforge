@@ -74,8 +74,11 @@ function launchViewer(urn, div3d, div2d) {
           viewer['2d'].tearDown();
           viewer['2d'].finish();
           var viewerDiv = document.getElementById(div2d);
+          console.log(viewerDiv)
           viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
           var selected = this.value;
+          console.log(selected)
+          console.log(doc)
           viewables.forEach(function(view) {
             if (view.guid === selected)
               showSvf(doc, view, '2d');
@@ -127,33 +130,14 @@ function showModel(doc, role, div, callback) {
     //console.error('Document contains no viewables.');
     return;
   }
-
+  firstfloorplan = viewables.name.includes('FLOOR');
   flagModel = false;
   var viewerDiv = document.getElementById(div);
   viewer[role] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
   
-  //takes in boolean or int as final input argument
-  floorviews = findViewIndices(viewables, 'FLOOR', 'indices');
-  console.log(floorviews);
-  showSvf(doc, viewables[floorviews], role);
+  showSvf(doc, viewables[0], role);
 
   if (callback) callback(viewables);
-}
-
-//finding the index of views relative to the viewables in the model
-function findViewIndices(viewables, value, type) {
-  // for(var i = 0; i < viewables.length; i+=1) {
-  //   if(viewables[i].name.includes(value)) {
-  //   return i;
-  //   }
-  // }
-  // return -1;
-  viewbools = viewables.map(e => e.name.includes(value));
-
-  if (type.toLowerCase() === 'boolean') {
-    return viewbools;
-  } else
-    return viewbools.indexOf(true);
 }
 
 function showSvf(doc, viewable, role) {
