@@ -1,5 +1,5 @@
 body {
-    padding-top: 3%; /* space for the top nav bar */
+    padding-top: 60px; /* space for the top nav bar */
     font-size: 14px !important;
     background-color: #efffff
 }
@@ -206,6 +206,7 @@ svg{
 .svgcanvas{
     margin-left: 2%;
 }
+
 
 #dropdown2dviews {
     height: 2%;

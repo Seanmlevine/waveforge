@@ -64,16 +64,18 @@ function launchViewer(urn, div3d, div2d) {
         var options = $("#list2dviews");
 
 
+        //initialize individual views
         var floors = $("#floor-names");
         var avNames = $("#av-names");
         var rcpNames = $("#rcp-names");
         var eavNames = $("#eav-names");
         var tepdNames = $("#tepd-names");
-        
+
+        //Sort names before appending to select buttons
+        viewables.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
         viewables.forEach(function(view) {
           //consider grouping by levelName
-
           if(view.name.includes('FLOOR')){
           floors.append($("<option />").val(view.guid).text(view.name));
           } else if (view.name.includes('RCP', 0)) {
@@ -88,8 +90,8 @@ function launchViewer(urn, div3d, div2d) {
           lineDiagramNames.append($("<option />").val(view.guid).text(view.name));
           }
           // options.append($("<option />").val(view.guid).text(view.name));
-          console.log(view)
         });
+        
 
 
         options.change(function() {
