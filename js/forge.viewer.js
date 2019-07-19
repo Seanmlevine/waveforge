@@ -115,7 +115,6 @@ function launchViewer(urn, div3d, div2d) {
           viewer['2d'].tearDown();
           viewer['2d'].finish();
           var viewerDiv = document.getElementById(div2d);
-          console.log(viewerDiv)
           viewer['2d'] = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv);
           var selected = this.value;
           viewables.forEach(function(view) {
