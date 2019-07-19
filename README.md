@@ -1,4 +1,4 @@
-# Forge Viewer Classroom Trainning
+# Forge Viewer Classroom Training
 Step 1: Very basic viewer
 [![LMV](https://img.shields.io/badge/Viewer-v1.2.23-green.svg)](https://developer.autodesk.com/api/view-and-data-api/)
 
